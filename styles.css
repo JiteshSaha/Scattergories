@@ -1,0 +1,239 @@
+/* Global reset + box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between; /* This will align the h1 and options on opposite sides */
+    align-items: center;  /* Vertically centers the h1 and options */
+    /* padding: 2vh 0vh; */
+    max-height: 10vh;
+  }
+  
+  #header h1 {
+    flex-grow: 1;  /* This will allow the h1 to take up remaining space */
+    text-align: center;  /* Center the h1 */
+  }
+  
+  #options {
+    /* Optionally you can add any styling for the options */
+    /* background-color: rgb(212, 30, 30); */
+    height: 100%;
+    aspect-ratio: 1;
+    font-size: 40px;
+    margin-right: 10px;
+    padding: 1%;
+    margin: 0%;
+    width: 5vw;
+    align-items: center;
+}
+
+  
+/* Full screen layout */
+html, body {
+    width: 100vw;
+    height: 100vh;
+    background-color: azure;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+.master-div {
+    /* padding-top: 1px; */
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; 
+    grid-template-rows: 1fr; /* Ensures full height */
+}
+
+/* Make both columns stretch */
+.container, .topic-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* Header title */
+h1 {
+    text-align: center;
+    /* padding: 10px; */
+    /* background-color: #dcefff; */
+    /* border-bottom: 2px solid #000; */
+}
+
+
+
+.mini-container {
+    display: grid;
+    width: 100%;
+    min-height: 90vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "top top"
+    "left right";
+}
+
+/* Ensure child elements stretch fully */
+.top-div,
+.left-div,
+.right-div {
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+/* Assign grid areas */
+.top-div { 
+    grid-area: top; 
+    background: lightcoral;
+}
+
+.left-div { 
+    grid-area: left; 
+    /* background: cyan;  */
+}
+
+.right-div { 
+    grid-area: right; 
+    /* background: white; */
+}
+
+/* Make sure the parent `.container` is set properly */
+.container {
+    display: grid;
+    grid-template-rows: 2fr 1fr; /* Letter takes more space */
+    width: 100%;
+    height: 90vh;
+    /* background-color: bisque; */
+}
+
+
+.holder{
+    display: flex;
+    flex-direction: column;
+}
+.holder div{
+    padding-bottom: 4px;
+}
+/* The big letter */
+#letter {
+    min-width: 20vw;
+    min-height: 20vh;
+    /* background-color: brown; */
+    color: rgb(33, 32, 32);
+    font-size: 18vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.watch-reset{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+    
+}
+
+.item {
+    height: 100%;
+    /* background-color: lightgrey; */
+    /* margin: 5px; */
+    /* padding: 20px; */
+    /* text-align: center; */
+}
+
+#reset{
+    height: 15vh;
+    flex: 1;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center; /* Optional: center content vertically */
+    justify-content: center;
+}
+
+
+/* Timer */
+#stopwatch {
+    flex: 2;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.btns {
+    width: 100%;
+    background-color: aqua;
+    padding: 10px 20px;
+    border: 2px solid black;
+    cursor: pointer;
+    font-weight: bold;
+    height: 100%;
+}
+
+#play-btn, #pause-btn {
+    height: 100%; /* stretch to fill vertical grid cell */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#pause-btn {
+    display: none;
+}
+
+/* Topics section */
+.topic-container {
+    flex: 1;
+    overflow-y: auto;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* make children use full width */
+    justify-content: space-evenly; /* distribute vertical space evenly */
+    height: 90vh;
+    border: 2px solid black;
+}
+
+/* Individual topic */
+.topic {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1.2rem;
+    flex-grow: 1;        /* Key: allow it to stretch */
+    display: flex;       /* Optional: center content */
+    align-items: center; /* Optional: center content vertically */
+    justify-content: left;
+}
+
+
+#heading{
+    border: 0px;
+    height: max-content;
+    padding: 10px;
+}
+
+
+.opaque {
+    position: relative;
+    z-index: 1;
+    background-color: #000;
+    width: max-content;
+}

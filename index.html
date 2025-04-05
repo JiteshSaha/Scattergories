@@ -5,23 +5,29 @@
     <meta charset="UTF-8">
     <title>Scattergories</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
-    <div id="header"><h1>Scattergories</h1> <div id="options"> ⚙</div></div>
+    <div id="header" class="dotted" ><h1>Scattergories</h1> <div id="options">⚙</div></div>
     <div class="master-div">
         <div class="container">                
-            <div class="mini-container">
+            <div class="mini-container dotted">
                 <div class="holder top-div"  id="generate-btn">
+                    <div style="margin-top: 2%;"> Alphabet:</div>
                     <div id="letter">J</div>
-                    <div id="restart-btn">Click to restart</div>
+                    <div id="restart-btn">Click to Restart</div>
                 </div>
-                <div class="btns left-div">
+                <div class="btns left-div bebas-neue-regular">
                     <div id="play-btn">PLAY</div>
                     <div id="pause-btn" style="display: none;">PAUSE</div>
                 </div>
                 <div class="watch-reset">
-                    <div id="stopwatch" class="right-div item">11:11:11</div>
+                    <div id="stopwatch" class="right-div item bebas-neue-regular">11:11:11</div>
                     <!-- <div id= "reset" class="item">RESET</div> -->
                 </div>
             </div>
@@ -40,14 +46,14 @@ const stopwatchDisplay = document.getElementById('stopwatch');
 
 // Stopwatch variables
 let countdownInterval;
-let timeRemaining = 60 * 5;  // Set the initial countdown time in seconds (5 minutes here)
+let timeRemaining = 60 * 1;  // Set the initial countdown time in seconds (5 minutes here)
 let isRunning = false;  // To track the running status of the stopwatch
 
 // Convert seconds to HH:MM:SS format
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    return `00:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
 // Start the countdown
@@ -191,6 +197,8 @@ stopwatchDisplay.innerHTML = formatTime(timeRemaining);
                 // Create topic div and append it to container
                 const topicDiv = document.createElement('div');
                 topicDiv.classList.add('topic');
+                topicDiv.classList.add('bebas-neue-regular-light');
+
                 
                 const opaqueDiv = document.createElement('div');
                 opaqueDiv.classList.add('opaque');
@@ -203,6 +211,14 @@ stopwatchDisplay.innerHTML = formatTime(timeRemaining);
 
         // Trigger on button click
         document.getElementById('generate-btn').addEventListener('click', generateTopics);
+    
+        document.addEventListener('DOMContentLoaded', () => {
+        // Call the generateTopics function after the DOM is fully loaded
+        generateTopics();
+        const letter = document.getElementById("letter")
+        letter.innerHTML = getRandomLetter()
+        });
+
     </script>
 </body>
 

@@ -104,11 +104,13 @@ h1 {
 
 .left-div { 
     grid-area: left; 
+    flex: 1
     /* background: cyan;  */
 }
 
 .right-div { 
-    grid-area: right; 
+    grid-area: right;
+    flex: 1.5 
     /* background: white; */
 }
 

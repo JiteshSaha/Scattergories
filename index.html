@@ -65,7 +65,8 @@
 
         // Timer
         let countdownInterval;
-        let timeRemaining = 60;
+        let defaultTime = 60;
+        let timeRemaining = defaultTime;
         let isRunning = false;
 
         function formatTime(seconds) {
@@ -104,6 +105,7 @@
         function resetCountdown() {
             clearInterval(countdownInterval);
             isRunning = false;
+            timeRemaining = defaultTime;
             stopwatchDisplay.innerHTML = formatTime(timeRemaining);
             playBtn.style.display = 'flex';
             pauseBtn.style.display = 'none';
@@ -172,30 +174,25 @@
         let numTopicsToGenerate = 10;
 
         function getRandomCategory(count) {
-    // Merge all categories (ignore empty or whitespace-only)
-    const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
-        .map(cat => cat.trim())
-        .filter(cat => cat.length > 0);
+            const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
+                .map(cat => cat.trim())
+                .filter(cat => cat.length > 0);
 
-    // Create a Set to remove duplicates
-    const uniqueCategories = [...new Set(allCategories)];
+            const uniqueCategories = [...new Set(allCategories)];
 
-    // Shuffle using Fisher-Yates
-    for (let i = uniqueCategories.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
-    }
+            for (let i = uniqueCategories.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
+            }
 
-    // Return up to `count` items
-    return uniqueCategories.slice(0, count);
-}
-
+            return uniqueCategories.slice(0, count);
+        }
 
         function generateTopics() {
             const container = document.getElementById('topic-container');
             container.innerHTML = '';
 
-            topics= getRandomCategory();
+            const topics = getRandomCategory(numTopicsToGenerate);
             for (let i = 0; i < numTopicsToGenerate; i++) {
                 const topic = topics[i];
                 const topicDiv = document.createElement('div');
@@ -217,7 +214,6 @@
             letter.innerHTML = getRandomLetter();
         });
 
-        // Slide-in Settings
         const optionsBtn = document.getElementById('options');
         const settingsMenu = document.getElementById('settings-menu');
         const closeSettings = document.getElementById('close-settings');
@@ -229,20 +225,18 @@
         closeSettings.addEventListener('click', () => {
             settingsMenu.classList.remove('open');
 
-            // Set new timer
             const newTime = parseInt(document.getElementById('time-input').value);
-            timeRemaining = newTime;
+            defaultTime = newTime;
+            timeRemaining = defaultTime;
             stopwatchDisplay.innerHTML = formatTime(timeRemaining);
 
-            // Set new topic count
             numTopicsToGenerate = parseInt(document.getElementById('topics-input').value);
 
-            // Parse custom topics
             const rawTopics = document.getElementById('custom-topics').value;
             customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+
             generateTopics();
             letter.innerHTML = getRandomLetter();
-            
         });
     </script>
 </body>

@@ -99,26 +99,28 @@
   #options {
     /* Optionally you can add any styling for the options */
     /* background-color: rgb(212, 30, 30); */
-    height: 100%;
-    aspect-ratio: 1;
+    display: flex;
+    margin-right: 3%;
     font-size: 40px;
-    margin-right: 10px;
-    padding: 5%;
-    margin: 0%;
-    width: 5vw;
+    padding: auto ;
     align-items: center;
 }
 
+html{
+
+    max-width: 95vw;
+    max-height: 95vh;
+}
 
 /* Full screen layout */
 html, body {
-    width: 95vw;
-    height: 95vh;
+    position: fixed;
     background-color: azure;
-    overflow: visible;
+    overflow: auto;
     font-family: sans-serif;
     margin: 2px;
 }
+
 
 .dotted{
     background: radial-gradient(circle, #1a1818 1px, transparent 1px) 0 0;

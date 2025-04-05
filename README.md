@@ -1,1 +1,3 @@
-##Game is live one: https://jiteshsaha.github.io/Scattergories/
+## Game is Live 🎮
+
+Check it out here: [Scattergories](https://jiteshsaha.github.io/Scattergories/)

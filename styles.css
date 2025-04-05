@@ -104,6 +104,7 @@
     font-size: 40px;
     padding: auto ;
     align-items: center;
+    cursor: pointer;
 }
 
 html{

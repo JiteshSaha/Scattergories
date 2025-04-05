@@ -115,9 +115,9 @@ html{
 
 /* Full screen layout */
 html, body {
-    position: fixed;
+    /* position: fixed; */
     background-color: azure;
-    overflow: auto;
+    overflow: visible;
     font-family: sans-serif;
     margin: 2px;
 }

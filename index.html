@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Scattergories</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div id="header" class="dotted" ><h1>Scattergories</h1> <div id="options">⚙</div></div>
+    <div id="header" class="dotted">
+        <h1>Scattergories</h1>
+        <div id="options">⚙</div>
+    </div>
+
     <div class="master-div">
-        <div class="container">                
+        <div class="container">
             <div class="mini-container dotted">
-                <div class="holder top-div"  id="generate-btn">
+                <div class="holder top-div" id="generate-btn">
                     <div style="margin-top: 2%;"> Alphabet:</div>
                     <div id="letter">J</div>
                     <div id="restart-btn">Click to Restart</div>
@@ -27,8 +28,7 @@
                     <div id="pause-btn" style="display: none;">PAUSE</div>
                 </div>
                 <div class="watch-reset">
-                    <div id="stopwatch" class="right-div item bebas-neue-regular">11:11:11</div>
-                    <!-- <div id= "reset" class="item">RESET</div> -->
+                    <div id="stopwatch" class="right-div item bebas-neue-regular">00:01:00</div>
                 </div>
             </div>
         </div>
@@ -38,118 +38,110 @@
         </div>
     </div>
 
+    <!-- Slide-in Settings Menu -->
+    <div id="settings-menu" class="settings-menu">
+        <div class="menu-header">
+            <span>⚙ Settings</span>
+        </div>
+        <div class="setting">
+            <label for="time-input">Time (seconds):</label>
+            <input type="number" id="time-input" min="10" step="10" value="60">
+        </div>
+        <div class="setting">
+            <label for="topics-input">Number of Topics:</label>
+            <input type="number" id="topics-input" min="1" max="20" value="10">
+        </div>
+        <div class="setting">
+            <label for="custom-topics">Custom Topics:</label>
+            <textarea id="custom-topics" placeholder="Enter topics separated by commas or new lines..."></textarea>
+        </div>
+        <div id="close-settings">Done</div>
+    </div>
+
     <script>
         const playBtn = document.getElementById('play-btn');
-const pauseBtn = document.getElementById('pause-btn');
-const restartBtn = document.getElementById("top-div");
-const stopwatchDisplay = document.getElementById('stopwatch');
+        const pauseBtn = document.getElementById('pause-btn');
+        const stopwatchDisplay = document.getElementById('stopwatch');
 
-// Stopwatch variables
-let countdownInterval;
-let timeRemaining = 60 * 1;  // Set the initial countdown time in seconds (5 minutes here)
-let isRunning = false;  // To track the running status of the stopwatch
+        // Timer
+        let countdownInterval;
+        let timeRemaining = 60;
+        let isRunning = false;
 
-// Convert seconds to HH:MM:SS format
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `00:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-}
-
-// Start the countdown
-function startCountdown() {
-    if (!isRunning) {
-        isRunning = true;
-        countdownInterval = setInterval(() => {
-            timeRemaining--;
-            stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-
-            if (timeRemaining <= 0) {
-                clearInterval(countdownInterval);
-                isRunning = false;
-                playBtn.style.display = 'flex';
-                pauseBtn.style.display = 'none';
-            }
-        }, 1000);
-
-        // Hide Play, show Pause
-        playBtn.style.display = 'none';
-        pauseBtn.style.display = 'flex';
-    }
-}
-
-// Pause the countdown
-function pauseCountdown() {
-    clearInterval(countdownInterval);
-    isRunning = false;
-    playBtn.style.display = 'flex';
-    pauseBtn.style.display = 'none';
-}
-
-// Reset the countdown
-function resetCountdown() {
-    clearInterval(countdownInterval);
-    isRunning = false;
-    timeRemaining = 60 * 1; // Reset to 5 minutes
-    stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-    playBtn.style.display = 'flex';
-    pauseBtn.style.display = 'none';
-}
-
-
-// Initialize the display with the starting time
-stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-
-
-        const letter = document.getElementById("letter")
-        const topdiv = document.getElementsByClassName("top-div")[0]
-
-        // Array containing all letters of the alphabet
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-        // Function to get a random letter
-        function getRandomLetter() {
-            const randomIndex = Math.floor(Math.random() * alphabet.length); // Generate a random index
-            return alphabet[randomIndex]; // Return the letter at the random index
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `00:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         }
 
-        topdiv.addEventListener('click' , ()=>{
-            console.log('resetting')
-            letter.innerHTML = getRandomLetter()
-            resetCountdown()
+        function startCountdown() {
+            if (!isRunning) {
+                isRunning = true;
+                countdownInterval = setInterval(() => {
+                    timeRemaining--;
+                    stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(countdownInterval);
+                        isRunning = false;
+                        playBtn.style.display = 'flex';
+                        pauseBtn.style.display = 'none';
+                    }
+                }, 1000);
+
+                playBtn.style.display = 'none';
+                pauseBtn.style.display = 'flex';
+            }
+        }
+
+        function pauseCountdown() {
+            clearInterval(countdownInterval);
+            isRunning = false;
+            playBtn.style.display = 'flex';
+            pauseBtn.style.display = 'none';
+        }
+
+        function resetCountdown() {
+            clearInterval(countdownInterval);
+            isRunning = false;
+            stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+            playBtn.style.display = 'flex';
+            pauseBtn.style.display = 'none';
+        }
+
+        stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+
+        const letter = document.getElementById("letter");
+        const topdiv = document.getElementsByClassName("top-div")[0];
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+        function getRandomLetter() {
+            return alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+
+        topdiv.addEventListener('click', () => {
+            letter.innerHTML = getRandomLetter();
+            resetCountdown();
         });
 
         const leftDiv = document.querySelector('.left-div');
 
-        // On Left Div click: toggle between Play and Pause
         leftDiv.addEventListener('click', () => {
             if (playBtn.style.display === 'none') {
-                // If Play button is hidden, show Play and hide Pause
-                playBtn.style.display = 'flex';
-                pauseBtn.style.display = 'none';
-                console.log("paused")
-
                 pauseCountdown();
-                const covers = document.getElementsByClassName('opaque')    
+                const covers = document.getElementsByClassName('opaque');
                 for (let i = 0; i < covers.length; i++) {
                     covers[i].style.backgroundColor = 'black';
                 }
-
             } else {
-                // If Pause button is hidden, show Pause and hide Play
-                playBtn.style.display = 'none';
-                pauseBtn.style.display = 'flex';
-                console.log("play")
-                startCountdown()
-                const covers = document.getElementsByClassName('opaque')       
+                startCountdown();
+                const covers = document.getElementsByClassName('opaque');
                 for (let i = 0; i < covers.length; i++) {
                     covers[i].style.backgroundColor = 'transparent';
                 }
-
             }
         });
 
-        // Simulated JSON dataset
         const dataset = {
             "general": [
                 "Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods", "Inventions",
@@ -171,55 +163,87 @@ stopwatchDisplay.innerHTML = formatTime(timeRemaining);
                 "Indian Beauty Brands", "Indian Spiritual Leaders", "Indian Heroes from History", "Popular Indian Music Instruments",
                 "Indian Religions", "Indian Cuisine Spices", "Indian Cricketers", "Indian Dance Forms", "Indian Scientists and Innovators",
                 "Indian Games", "Traditional Indian Jewelry", "Indian Wildlife Sanctuaries", "Famous Indian Startups",
-                "Indian Architects", "Famous Indian Architects", "Famous Indian Writers", "Indian Radio Shows", "Indian Literature Genres",
+                "Indian Architects", "Famous Indian Architects", "Famous Indian Writers", "Indian Men Names", "Indian Women Names", "Indian Literature Genres",
                 "Indian Authors of Fiction", "Traditional Indian Festivals"
             ]
         };
 
-        // Configurable number of topics to generate
-        const numTopicsToGenerate = 10;
+        let customTopics = [];
+        let numTopicsToGenerate = 10;
 
-        function getRandomCategory() {
-            // Combine the general and indian categories into one array
-            const allCategories = [...dataset.general, ...dataset.indian];
-            // Pick a random category
-            return allCategories[Math.floor(Math.random() * allCategories.length)];
-        }
+        function getRandomCategory(count) {
+    // Merge all categories (ignore empty or whitespace-only)
+    const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
+        .map(cat => cat.trim())
+        .filter(cat => cat.length > 0);
+
+    // Create a Set to remove duplicates
+    const uniqueCategories = [...new Set(allCategories)];
+
+    // Shuffle using Fisher-Yates
+    for (let i = uniqueCategories.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
+    }
+
+    // Return up to `count` items
+    return uniqueCategories.slice(0, count);
+}
+
 
         function generateTopics() {
             const container = document.getElementById('topic-container');
-            // Clear previous content if any
             container.innerHTML = '';
 
-            // Loop to create elements
+            topics= getRandomCategory();
             for (let i = 0; i < numTopicsToGenerate; i++) {
-                const topic = getRandomCategory(); // Fetch random category
-                // Create topic div and append it to container
+                const topic = topics[i];
                 const topicDiv = document.createElement('div');
-                topicDiv.classList.add('topic');
-                topicDiv.classList.add('bebas-neue-regular-light');
+                topicDiv.classList.add('topic', 'bebas-neue-regular-light');
 
-                
                 const opaqueDiv = document.createElement('div');
                 opaqueDiv.classList.add('opaque');
-                opaqueDiv.textContent = (i+1) + ". " +topic;
-                
+                opaqueDiv.textContent = `${i + 1}. ${topic}`;
+
                 topicDiv.appendChild(opaqueDiv);
                 container.appendChild(topicDiv);
             }
         }
 
-        // Trigger on button click
         document.getElementById('generate-btn').addEventListener('click', generateTopics);
-    
+
         document.addEventListener('DOMContentLoaded', () => {
-        // Call the generateTopics function after the DOM is fully loaded
-        generateTopics();
-        const letter = document.getElementById("letter")
-        letter.innerHTML = getRandomLetter()
+            generateTopics();
+            letter.innerHTML = getRandomLetter();
         });
 
+        // Slide-in Settings
+        const optionsBtn = document.getElementById('options');
+        const settingsMenu = document.getElementById('settings-menu');
+        const closeSettings = document.getElementById('close-settings');
+
+        optionsBtn.addEventListener('click', () => {
+            settingsMenu.classList.add('open');
+        });
+
+        closeSettings.addEventListener('click', () => {
+            settingsMenu.classList.remove('open');
+
+            // Set new timer
+            const newTime = parseInt(document.getElementById('time-input').value);
+            timeRemaining = newTime;
+            stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+
+            // Set new topic count
+            numTopicsToGenerate = parseInt(document.getElementById('topics-input').value);
+
+            // Parse custom topics
+            const rawTopics = document.getElementById('custom-topics').value;
+            customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+            generateTopics();
+            letter.innerHTML = getRandomLetter();
+            
+        });
     </script>
 </body>
-
 </html>

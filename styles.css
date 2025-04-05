@@ -5,6 +5,83 @@
     box-sizing: border-box;
 }
 
+.settings-menu {
+    padding: Auto;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    border-left: 2px solid #ccc;
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100px;
+    display: flex;
+    flex-direction: column;
+    /* gap: 10%; */
+}
+
+.settings-menu div{
+
+    border: 2px double #1a1818   ;
+    margin: 0px;
+    padding: 10%;
+    font-size: large;
+}
+
+.settings-menu.open {
+    right: 0;
+}
+
+#close-settings {
+    background-color: lightcoral;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+#close-settings:hover {
+    font-size: larger;
+}
+
+
+
+.menu-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    margin-top: 10vh;
+    border: 0px;
+}
+
+.setting {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.setting label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+#custom-topics {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
 #header {
     display: flex;
     justify-content: space-between; /* This will align the h1 and options on opposite sides */

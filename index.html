@@ -27,14 +27,15 @@
                     <div id="play-btn">PLAY</div>
                     <div id="pause-btn" style="display: none;">PAUSE</div>
                 </div>
-                <div class="watch-reset">
+                <div class="watch-reset item bebas-neue-regular">
                     <div id="stopwatch" class="right-div item bebas-neue-regular">00:01:00</div>
+                    <div id="score"> Score : <div id="scorecard">0</div></div>
                 </div>
             </div>
         </div>
 
         <div id="topic-container" class="topic-container">
-            <!-- Categories will be populated here -->
+            <!-- Categories go here -->
         </div>
     </div>
 
@@ -62,8 +63,6 @@
         const playBtn = document.getElementById('play-btn');
         const pauseBtn = document.getElementById('pause-btn');
         const stopwatchDisplay = document.getElementById('stopwatch');
-
-        // Timer
         let countdownInterval;
         let defaultTime = 60;
         let timeRemaining = defaultTime;
@@ -81,7 +80,6 @@
                 countdownInterval = setInterval(() => {
                     timeRemaining--;
                     stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-
                     if (timeRemaining <= 0) {
                         clearInterval(countdownInterval);
                         isRunning = false;
@@ -89,7 +87,6 @@
                         pauseBtn.style.display = 'none';
                     }
                 }, 1000);
-
                 playBtn.style.display = 'none';
                 pauseBtn.style.display = 'flex';
             }
@@ -127,47 +124,23 @@
         });
 
         const leftDiv = document.querySelector('.left-div');
-
         leftDiv.addEventListener('click', () => {
             if (playBtn.style.display === 'none') {
                 pauseCountdown();
-                const covers = document.getElementsByClassName('opaque');
-                for (let i = 0; i < covers.length; i++) {
-                    covers[i].style.backgroundColor = 'black';
-                }
+                [...document.getElementsByClassName('opaque')].forEach(el => {
+                    el.style.backgroundColor = 'black';
+                });
             } else {
                 startCountdown();
-                const covers = document.getElementsByClassName('opaque');
-                for (let i = 0; i < covers.length; i++) {
-                    covers[i].style.backgroundColor = 'transparent';
-                }
+                [...document.getElementsByClassName('opaque')].forEach(el => {
+                    el.style.backgroundColor = 'transparent';
+                });
             }
         });
 
         const dataset = {
-            "general": [
-                "Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods", "Inventions",
-                "Colors", "Music Genres", "Books", "Historical Figures", "Cartoons", "Planets", "Technology Brands",
-                "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Types of Trees", "Desserts",
-                "Countries in Europe", "Ice Cream Flavors", "Famous Scientists", "Board Games", "Superheroes", "Shapes",
-                "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
-                "Famous Authors", "Books by Genre", "Buildings", "Philosophers", "Seasons", "Types of Weather",
-                "Food Ingredients", "Circus Animals", "Tropical Fruits", "Fast Food Chains", "Historical Events",
-                "Famous Wars", "Gems and Stones", "Paintings", "Dance Styles"
-            ],
-            "indian": [
-                "Bollywood Movies", "Indian States", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers", "Indian Cuisines",
-                "Indian Monuments", "Famous Indian Authors", "Indian Traditional Dances", "Types of Indian Sweets",
-                "Famous Indian Musicians", "Traditional Indian Clothing", "Indian Temples", "Indian Animals", "Indian Sports",
-                "Indian Mythological Figures", "Indian Languages", "Indian Pop Music", "Indian TV Shows", "Famous Indian Artists",
-                "Indian Temples", "Famous Indian Universities", "Indian Tea Varieties", "Bollywood Actors", "Indian Fashion Designers",
-                "Indian Historical Figures", "Famous Indian Scientists", "Indian Street Foods", "Indian Holidays", "Famous Indian Monuments",
-                "Indian Beauty Brands", "Indian Spiritual Leaders", "Indian Heroes from History", "Popular Indian Music Instruments",
-                "Indian Religions", "Indian Cuisine Spices", "Indian Cricketers", "Indian Dance Forms", "Indian Scientists and Innovators",
-                "Indian Games", "Traditional Indian Jewelry", "Indian Wildlife Sanctuaries", "Famous Indian Startups",
-                "Indian Architects", "Famous Indian Architects", "Famous Indian Writers", "Indian Men Names", "Indian Women Names", "Indian Literature Genres",
-                "Indian Authors of Fiction", "Traditional Indian Festivals"
-            ]
+            general: ["Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods"],
+            indian: ["Bollywood Movies", "Indian States", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers"]
         };
 
         let customTopics = [];
@@ -177,42 +150,53 @@
             const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
                 .map(cat => cat.trim())
                 .filter(cat => cat.length > 0);
-
             const uniqueCategories = [...new Set(allCategories)];
-
             for (let i = uniqueCategories.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
             }
-
             return uniqueCategories.slice(0, count);
         }
 
         function generateTopics() {
-            const container = document.getElementById('topic-container');
-            container.innerHTML = '';
+    const container = document.getElementById('topic-container');
+    container.innerHTML = '';
+    const topics = getRandomCategory(numTopicsToGenerate);
+    for (let i = 0; i < numTopicsToGenerate; i++) {
+        const topic = topics[i];
+        const topicDiv = document.createElement('div');
+        topicDiv.classList.add('topic', 'bebas-neue-regular-light');
 
-            const topics = getRandomCategory(numTopicsToGenerate);
-            for (let i = 0; i < numTopicsToGenerate; i++) {
-                const topic = topics[i];
-                const topicDiv = document.createElement('div');
-                topicDiv.classList.add('topic', 'bebas-neue-regular-light');
+        const opaqueDiv = document.createElement('div');
+        opaqueDiv.classList.add('opaque');
+        opaqueDiv.textContent = `${i + 1}. ${topic}`;
 
-                const opaqueDiv = document.createElement('div');
-                opaqueDiv.classList.add('opaque');
-                opaqueDiv.textContent = `${i + 1}. ${topic}`;
+        topicDiv.appendChild(opaqueDiv);
+        container.appendChild(topicDiv);
 
-                topicDiv.appendChild(opaqueDiv);
-                container.appendChild(topicDiv);
-            }
+        topicDiv.addEventListener('click', function () {
+            if (!isRunning) return;
+            this.classList.toggle("activated");
+            document.getElementById("scorecard").innerHTML = getScoreNum();
+        });
+    }
+}
+
+
+function getScoreNum() {
+    return document.querySelectorAll(".topic.activated").length;
+}
+
+
+        function resetBoard() {
+            generateTopics();
+            letter.innerHTML = getRandomLetter();
+            document.getElementById("scorecard").innerHTML = getScoreNum();
         }
 
         document.getElementById('generate-btn').addEventListener('click', generateTopics);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            generateTopics();
-            letter.innerHTML = getRandomLetter();
-        });
+        document.addEventListener('DOMContentLoaded', resetBoard);
 
         const optionsBtn = document.getElementById('options');
         const settingsMenu = document.getElementById('settings-menu');
@@ -225,8 +209,7 @@
         closeSettings.addEventListener('click', () => {
             settingsMenu.classList.remove('open');
 
-            const newTime = parseInt(document.getElementById('time-input').value);
-            defaultTime = newTime;
+            defaultTime = parseInt(document.getElementById('time-input').value);
             timeRemaining = defaultTime;
             stopwatchDisplay.innerHTML = formatTime(timeRemaining);
 
@@ -235,8 +218,7 @@
             const rawTopics = document.getElementById('custom-topics').value;
             customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
 
-            generateTopics();
-            letter.innerHTML = getRandomLetter();
+            resetBoard();
         });
     </script>
 </body>

@@ -117,7 +117,7 @@ html{
 html, body {
     /* position: fixed; */
     background-color: azure;
-    overflow: visible;
+    /* overflow: visible; */
     font-family: sans-serif;
     margin: 2px;
 }

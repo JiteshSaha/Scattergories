@@ -16,19 +16,19 @@
       </div>
       <div class="master-div">
          <div class="container">
-            <div class="mini-container dotted">
+            <div class="mini-container">
                <div class="holder top-div clickable border" id="generate-btn" role="button" tabindex="0">
                   <div style="margin-top: 2%;">Alphabet:</div>
-                  <div id="letter" class="font-large">J</div>
+                  <div id="letter" class="font-large enlarge-on-hover">J</div>
                   <div id="restart-btn" class="font-small">Click to Restart</div>
                </div>
-               <div class="btns left-div bebas-neue-regular clickable  border" role="button" tabindex="0">
-                  <div id="play-btn">PLAY</div>
-                  <div id="pause-btn" class="hidden">PAUSE</div>
+               <div class="btns left-div bebas-neue-regular clickable border" role="button" tabindex="0">
+                  <div id="play-btn" class="enlarge-on-hover">PLAY</div>
+                  <div id="pause-btn" class="hidden enlarge-on-hover">PAUSE</div>
                </div>
                <div class="watch-reset item bebas-neue-regular">
-                  <div id="stopwatch" class="border">00:01:00</div>
-                  <div id="score" class="dotted  border">
+                  <div id="stopwatch" class="border"><div id="time-text">00:01:00</div></div>
+                  <div id="score" class="dotted border">
                      Score: 
                      <div id="scorecard">0</div>
                   </div>
@@ -61,6 +61,17 @@
             <label for="custom-topics">Custom Topics:</label>
             <textarea id="custom-topics" placeholder="Enter topics separated by commas or new lines..."></textarea>
          </div>
+
+         <div class="setting" id="toggle">
+          <span>Local Topics (India):</span>
+          <label class="switch">
+            <input type="checkbox" id="local-toggle" checked />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        
+
          <div id="close-settings" class="restart-btn clickable" role="button" tabindex="0">Done</div>
       </div>
       <script src="./scripts.js" defer></script>

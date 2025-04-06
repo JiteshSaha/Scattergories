@@ -4,11 +4,13 @@ let timeRemaining = defaultTime;
 let isRunning = false;
 let customTopics = [];
 let numTopicsToGenerate = 10;
+let includeIndianTopics = true;
 
 const playBtn = document.getElementById('play-btn');
 const pauseBtn = document.getElementById('pause-btn');
 const stopwatchDisplay = document.getElementById('stopwatch');
-
+const timetext = document.getElementById("time-text");
+const btns = document.getElementsByClassName('btns')[0]
 const letter = document.getElementById('letter');
 const topdiv = document.querySelector('.top-div');
 const leftDiv = document.querySelector('.left-div');
@@ -46,6 +48,23 @@ let dataset = { ...fullDataset }; // live dataset copy
 
 document.addEventListener('DOMContentLoaded', resetBoard);
 
+
+const localToggle = document.getElementById('local-toggle');
+localToggle.addEventListener('change', () => {
+  includeIndianTopics = localToggle.checked;
+});
+
+function get_dataset() {
+  // Clone fullDataset to avoid modifying original
+  const copy = { ...fullDataset };
+  if (!includeIndianTopics) {
+    delete copy.indian; // Remove "indian" key if not included
+  }
+  return copy;
+}
+
+
+
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const secs = seconds % 60;
@@ -60,11 +79,16 @@ function showGameOver() {
 
 function togglePlayPauseButtons() {
   if (isRunning) {
+    // button shows 'pause'
     playBtn.style.display = 'none';
     pauseBtn.style.display = 'flex';
+    timetext.style.transform = "scale(1.3)"
+    
   } else {
     playBtn.style.display = 'flex';
     pauseBtn.style.display = 'none';
+    timetext.style.transform = null;
+
   }
 }
 
@@ -73,7 +97,7 @@ function startCountdown() {
     isRunning = true;
     countdownInterval = setInterval(() => {
       timeRemaining--;
-      stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+      timetext.innerHTML = formatTime(timeRemaining);
       if (timeRemaining <= 0) {
         clearInterval(countdownInterval);
         isRunning = false;
@@ -95,7 +119,7 @@ function resetCountdown() {
   clearInterval(countdownInterval);
   isRunning = false;
   timeRemaining = defaultTime;
-  stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+  timetext.innerHTML = formatTime(timeRemaining);
   togglePlayPauseButtons();
 }
 
@@ -104,9 +128,11 @@ function getRandomLetter() {
 }
 
 function getRandomCategory(count) {
+  const dataset = get_dataset();
+
+  // Merge all topic arrays from the dataset into one big array
   const allCategories = [
-    ...(dataset.general || []),
-    ...(dataset.indian || []),
+    ...Object.values(dataset).flat(),
     ...(customTopics || [])
   ].map(cat => cat.trim()).filter(cat => cat.length > 0);
 
@@ -125,7 +151,7 @@ function generateTopics() {
     const topicDiv = document.createElement('div');
     topicDiv.classList.add('topic');
     const opaqueDiv = document.createElement('div');
-    opaqueDiv.classList.add('opaque');
+    opaqueDiv.classList.add('opaque', "enlarge-on-hover");
     opaqueDiv.textContent = `${i + 1}. ${topics[i] || 'Topic'}`;
     topicDiv.appendChild(opaqueDiv);
     container.appendChild(topicDiv);
@@ -175,7 +201,7 @@ closeSettings.addEventListener('click', () => {
   settingsMenu.classList.remove('open');
   defaultTime = parseInt(document.getElementById('time-input').value);
   timeRemaining = defaultTime;
-  stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+  timetext.innerHTML = formatTime(timeRemaining);
   numTopicsToGenerate = parseInt(document.getElementById('topics-input').value);
   const rawTopics = document.getElementById('custom-topics').value;
   customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);

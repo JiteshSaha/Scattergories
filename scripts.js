@@ -23,8 +23,27 @@ const closeSettings = document.getElementById('close-settings');
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const dataset = {
-    general: ["Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods"],
-    indian: ["Bollywood Movies", "Indian States", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers"]
+
+  "general": [
+    "Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods", "Inventions",
+   "Colors", "Music Genres", "Books", "Historical Figures", "Cartoons", "Planets", "Technology Brands",
+   "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Types of Trees", "Desserts",
+   "Countries in Europe", "Ice Cream Flavors", "Famous Scientists", "Board Games", "Superheroes", "Shapes",
+   "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
+   "Famous Authors", "Books by Genre", "Buildings", "Philosophers", "Seasons", "Types of Weather",
+   "Food Ingredients", "Circus Animals", "Tropical Fruits", "Fast Food Chains", "Historical Events",
+    "Famous Wars", "Gems and Stones", "Paintings", "Dance Styles"
+],
+"indian": [
+    "Bollywood Movies", "Indian States","Indian Cities", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers", "Indian Cuisines",
+    "Indian Monuments", "Famous Indian Musicians", "Traditional Indian Clothing", "Indian Temples", "Indian Animals", "Indian Sports",
+    "Indian Mythological Figures", "Indian Languages", "Indian Song", "Indian TV Shows", "Famous Indian Artists", "Bollywood Actors", "Bollywood Actresses",
+    "Indian Historical Figures", "Famous Indian Scientists", "Indian Street Foods", "Indian Holidays", "Famous Indian Monuments",
+    "Indian Beauty Brands", "Indian Heroes from History", "Popular Indian Music Instruments",
+    "Indian Religions", "Indian Cuisine Spices", "Indian Cricketers", "Indian Dance Forms", "Indian Scientists and Innovators",
+    "Indian Games", "Traditional Indian Jewelry", "Famous Indian Startups",
+    ,"Indian Authors"]    
+
 };
 
 document.addEventListener('DOMContentLoaded', resetBoard);

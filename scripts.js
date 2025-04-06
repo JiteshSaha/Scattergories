@@ -30,7 +30,7 @@ const dataset = {
    "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Types of Trees", "Desserts",
    "Countries in Europe", "Ice Cream Flavors", "Famous Scientists", "Board Games", "Superheroes", "Shapes",
    "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
-   "Famous Authors", "Books by Genre", "Buildings", "Philosophers", "Seasons", "Types of Weather",
+   "Famous Authors", "Books by Genre", "Buildings", , "Seasons", "Types of Weather",
    "Food Ingredients", "Circus Animals", "Tropical Fruits", "Fast Food Chains", "Historical Events",
     "Famous Wars", "Gems and Stones", "Paintings", "Dance Styles"
 ],

@@ -163,6 +163,17 @@ function generateTopics() {
       this.classList.toggle("activated");
       document.getElementById("scorecard").textContent = getScoreNum();
     });
+
+    topicDiv.addEventListener('mouseover', function () {
+      if (!isRunning) return;
+      this.style.backgroundColor = "rgb(165, 239, 198)";
+    });
+    
+    topicDiv.addEventListener('mouseout', function () {
+      if (!isRunning) return;
+      this.style.backgroundColor = ""; // or original color
+    });
+
   }
 }
 

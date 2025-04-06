@@ -230,6 +230,7 @@ h1 {
     justify-content: center;
     width: 100%;
     height: 100%;
+    text-shadow: rgb(171, 159, 159) 5px 5px 5px
 }
 
 .watch-reset{
@@ -299,15 +300,26 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     height: 100%;
+    
+}
 
+.btn div{
+    transition: text-shadow 0.2 ease-out ;
+}
+
+
+.btns div:hover{
+    text-shadow: rgb(97, 97, 89) 2px 2px 2px;
 }
 
 .enlarge-on-hover {
     transition: transform 0.3s ease;
-  }
-  
-  .enlarge-on-hover:hover {
+    
+}
+
+.enlarge-on-hover:hover {
     transform: scale(1.1); /* Increase to 110% size */
+    
   }
 
 #play-btn, #pause-btn {

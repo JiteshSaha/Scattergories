@@ -1,225 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Scattergories</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-</head>
+   <head>
+      <meta charset="UTF-8" />
+      <title>Scattergories</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+      <link rel="stylesheet" href="styles.css" />
 
-<body>
-    <div id="header" class="dotted">
-        <h1>Scattergories</h1>
-        <div id="options">⚙</div>
-    </div>
-
-    <div class="master-div">
-        <div class="container">
+    </head>
+   <body>
+      <div id="header" class="dotted">
+         <h1>Scattergories</h1>
+         <div id="options" class="clickable" role="button" tabindex="0">⚙</div>
+      </div>
+      <div class="master-div">
+         <div class="container">
             <div class="mini-container dotted">
-                <div class="holder top-div" id="generate-btn">
-                    <div style="margin-top: 2%;"> Alphabet:</div>
-                    <div id="letter">J</div>
-                    <div id="restart-btn">Click to Restart</div>
-                </div>
-                <div class="btns left-div bebas-neue-regular">
-                    <div id="play-btn">PLAY</div>
-                    <div id="pause-btn" style="display: none;">PAUSE</div>
-                </div>
-                <div class="watch-reset item bebas-neue-regular">
-                    <div id="stopwatch" class="right-div item bebas-neue-regular">00:01:00</div>
-                    <div id="score"> Score : <div id="scorecard">0</div></div>
-                </div>
+               <div class="holder top-div clickable border" id="generate-btn" role="button" tabindex="0">
+                  <div style="margin-top: 2%;">Alphabet:</div>
+                  <div id="letter" class="font-large">J</div>
+                  <div id="restart-btn" class="font-small">Click to Restart</div>
+               </div>
+               <div class="btns left-div bebas-neue-regular clickable  border" role="button" tabindex="0">
+                  <div id="play-btn">PLAY</div>
+                  <div id="pause-btn" class="hidden">PAUSE</div>
+               </div>
+               <div class="watch-reset item bebas-neue-regular">
+                  <div id="stopwatch" class="border">00:01:00</div>
+                  <div id="score" class="dotted  border">
+                     Score: 
+                     <div id="scorecard">0</div>
+                  </div>
+               </div>
             </div>
-        </div>
-
-        <div id="topic-container" class="topic-container">
-            <!-- Categories go here -->
-        </div>
-    </div>
-
-    <!-- Slide-in Settings Menu -->
-    <div id="settings-menu" class="settings-menu">
-        <div class="menu-header">
-            <span>⚙ Settings</span>
-        </div>
-        <div class="setting">
+         </div>
+         <div id="topic-container" class="topic-container"></div>
+         <div id="game-over-window" class="game-over-window display-false">
+            <div class="game-over-content dotted">
+               <div class="font-large" style="margin: 10px;">Time's Up!</div>
+               <div id="final-score" style="margin: 10px 0;">
+                  Score: 
+                  <div id="final-scorecard" class="score-style">0</div>
+               </div>
+               <div id="restart-final-btn" class="restart-btn clickable" role="button" tabindex="0">Restart Game</div>
+            </div>
+         </div>
+      </div>
+      <div id="settings-menu" class="settings-menu">
+         <div class="menu-header"><span>⚙ Settings</span></div>
+         <div class="setting">
             <label for="time-input">Time (seconds):</label>
-            <input type="number" id="time-input" min="10" step="10" value="60">
-        </div>
-        <div class="setting">
+            <input type="number" id="time-input" min="10" step="10" value="60" />
+         </div>
+         <div class="setting">
             <label for="topics-input">Number of Topics:</label>
-            <input type="number" id="topics-input" min="1" max="20" value="10">
-        </div>
-        <div class="setting">
+            <input type="number" id="topics-input" min="1" max="20" value="10" />
+         </div>
+         <div class="setting">
             <label for="custom-topics">Custom Topics:</label>
             <textarea id="custom-topics" placeholder="Enter topics separated by commas or new lines..."></textarea>
-        </div>
-        <div id="close-settings">Done</div>
-    </div>
+         </div>
+         <div id="close-settings" class="restart-btn clickable" role="button" tabindex="0">Done</div>
+      </div>
+      <script src="./scripts.js" defer></script>
 
-    <script>
-        const playBtn = document.getElementById('play-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const stopwatchDisplay = document.getElementById('stopwatch');
-        let countdownInterval;
-        let defaultTime = 60;
-        let timeRemaining = defaultTime;
-        let isRunning = false;
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `00:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        function startCountdown() {
-            if (!isRunning) {
-                isRunning = true;
-                countdownInterval = setInterval(() => {
-                    timeRemaining--;
-                    stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-                    if (timeRemaining <= 0) {
-                        clearInterval(countdownInterval);
-                        isRunning = false;
-                        playBtn.style.display = 'flex';
-                        pauseBtn.style.display = 'none';
-                    }
-                }, 1000);
-                playBtn.style.display = 'none';
-                pauseBtn.style.display = 'flex';
-            }
-        }
-
-        function pauseCountdown() {
-            clearInterval(countdownInterval);
-            isRunning = false;
-            playBtn.style.display = 'flex';
-            pauseBtn.style.display = 'none';
-        }
-
-        function resetCountdown() {
-            clearInterval(countdownInterval);
-            isRunning = false;
-            timeRemaining = defaultTime;
-            stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-            playBtn.style.display = 'flex';
-            pauseBtn.style.display = 'none';
-        }
-
-        stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-
-        const letter = document.getElementById("letter");
-        const topdiv = document.getElementsByClassName("top-div")[0];
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-        function getRandomLetter() {
-            return alphabet[Math.floor(Math.random() * alphabet.length)];
-        }
-
-        topdiv.addEventListener('click', () => {
-            letter.innerHTML = getRandomLetter();
-            resetCountdown();
-        });
-
-        const leftDiv = document.querySelector('.left-div');
-        leftDiv.addEventListener('click', () => {
-            if (playBtn.style.display === 'none') {
-                pauseCountdown();
-                [...document.getElementsByClassName('opaque')].forEach(el => {
-                    el.style.backgroundColor = 'black';
-                });
-            } else {
-                startCountdown();
-                [...document.getElementsByClassName('opaque')].forEach(el => {
-                    el.style.backgroundColor = 'transparent';
-                });
-            }
-        });
-
-        const dataset = {
-            general: ["Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods"],
-            indian: ["Bollywood Movies", "Indian States", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers"]
-        };
-
-        let customTopics = [];
-        let numTopicsToGenerate = 10;
-
-        function getRandomCategory(count) {
-            const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
-                .map(cat => cat.trim())
-                .filter(cat => cat.length > 0);
-            const uniqueCategories = [...new Set(allCategories)];
-            for (let i = uniqueCategories.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
-            }
-            return uniqueCategories.slice(0, count);
-        }
-
-        function generateTopics() {
-    const container = document.getElementById('topic-container');
-    container.innerHTML = '';
-    const topics = getRandomCategory(numTopicsToGenerate);
-    for (let i = 0; i < numTopicsToGenerate; i++) {
-        const topic = topics[i];
-        const topicDiv = document.createElement('div');
-        topicDiv.classList.add('topic', 'bebas-neue-regular-light');
-
-        const opaqueDiv = document.createElement('div');
-        opaqueDiv.classList.add('opaque');
-        opaqueDiv.textContent = `${i + 1}. ${topic}`;
-
-        topicDiv.appendChild(opaqueDiv);
-        container.appendChild(topicDiv);
-
-        topicDiv.addEventListener('click', function () {
-            if (!isRunning) return;
-            this.classList.toggle("activated");
-            document.getElementById("scorecard").innerHTML = getScoreNum();
-        });
-    }
-}
-
-
-function getScoreNum() {
-    return document.querySelectorAll(".topic.activated").length;
-}
-
-
-        function resetBoard() {
-            generateTopics();
-            letter.innerHTML = getRandomLetter();
-            document.getElementById("scorecard").innerHTML = getScoreNum();
-        }
-
-        document.getElementById('generate-btn').addEventListener('click', generateTopics);
-
-        document.addEventListener('DOMContentLoaded', resetBoard);
-
-        const optionsBtn = document.getElementById('options');
-        const settingsMenu = document.getElementById('settings-menu');
-        const closeSettings = document.getElementById('close-settings');
-
-        optionsBtn.addEventListener('click', () => {
-            settingsMenu.classList.add('open');
-        });
-
-        closeSettings.addEventListener('click', () => {
-            settingsMenu.classList.remove('open');
-
-            defaultTime = parseInt(document.getElementById('time-input').value);
-            timeRemaining = defaultTime;
-            stopwatchDisplay.innerHTML = formatTime(timeRemaining);
-
-            numTopicsToGenerate = parseInt(document.getElementById('topics-input').value);
-
-            const rawTopics = document.getElementById('custom-topics').value;
-            customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
-
-            resetBoard();
-        });
-    </script>
-</body>
+   </body>
 </html>

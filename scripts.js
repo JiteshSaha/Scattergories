@@ -1,0 +1,179 @@
+let countdownInterval;
+let defaultTime = 60;
+let timeRemaining = defaultTime;
+let isRunning = false;
+let customTopics = [];
+let numTopicsToGenerate = 10;
+
+
+const playBtn = document.getElementById('play-btn');
+const pauseBtn = document.getElementById('pause-btn');
+const stopwatchDisplay = document.getElementById('stopwatch');
+
+const letter = document.getElementById('letter');
+const topdiv = document.querySelector('.top-div');
+const leftDiv = document.querySelector('.left-div');
+
+const container = document.getElementById('topic-container');
+
+const optionsBtn = document.getElementById('options');
+const settingsMenu = document.getElementById('settings-menu');
+const closeSettings = document.getElementById('close-settings');
+
+
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const dataset = {
+    general: ["Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods"],
+    indian: ["Bollywood Movies", "Indian States", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers"]
+};
+
+document.addEventListener('DOMContentLoaded', resetBoard);
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `00:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+function showGameOver() {
+    document.getElementById("game-over-window").classList.remove("display-false");
+    document.getElementById("final-scorecard").textContent = getScoreNum();
+    document.getElementById("game-over-window").style.display = "flex";
+}
+
+function togglePlayPauseButtons() {
+    console.log("Toggling with isRunning =", isRunning);
+  
+    if (isRunning) {
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'flex';
+    } else {
+      playBtn.style.display = 'flex';
+      pauseBtn.style.display = 'none';
+    }
+  }
+  
+
+
+function startCountdown() {
+  if (!isRunning) {
+    isRunning = true;
+    countdownInterval = setInterval(() => {
+      timeRemaining--;
+      stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+      if (timeRemaining <= 0) {
+        clearInterval(countdownInterval);
+        isRunning = false;
+        showGameOver();
+        togglePlayPauseButtons();
+      }
+    }, 1000);
+    togglePlayPauseButtons();
+  }
+}
+
+function pauseCountdown() {
+  clearInterval(countdownInterval);
+  isRunning = false;
+  togglePlayPauseButtons();
+}
+
+function resetCountdown() {
+  clearInterval(countdownInterval);
+  isRunning = false;
+  timeRemaining = defaultTime;
+  stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+  togglePlayPauseButtons();
+}
+
+// playBtn.addEventListener('click', ()=>{
+//     isRunning = true;
+// });
+
+function getRandomLetter() {
+  return alphabet[Math.floor(Math.random() * alphabet.length)];
+}
+
+function getRandomCategory(count) {
+  const allCategories = [...dataset.general, ...dataset.indian, ...(customTopics || [])]
+    .map(cat => cat.trim())
+    .filter(cat => cat.length > 0);
+  const uniqueCategories = [...new Set(allCategories)];
+  for (let i = uniqueCategories.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [uniqueCategories[i], uniqueCategories[j]] = [uniqueCategories[j], uniqueCategories[i]];
+  }
+  return uniqueCategories.slice(0, count);
+}
+
+function generateTopics() {
+  container.innerHTML = '';
+  const topics = getRandomCategory(numTopicsToGenerate);
+  for (let i = 0; i < numTopicsToGenerate; i++) {
+    const topicDiv = document.createElement('div');
+    topicDiv.classList.add('topic');
+    const opaqueDiv = document.createElement('div');
+    opaqueDiv.classList.add('opaque');
+    opaqueDiv.textContent = `${i + 1}. ${topics[i] || 'Topic'}`;
+    topicDiv.appendChild(opaqueDiv);
+    container.appendChild(topicDiv);
+    topicDiv.addEventListener('click', function () {
+      if (!isRunning) return;
+      this.classList.toggle("activated");
+      document.getElementById("scorecard").textContent = getScoreNum();
+    });
+  }
+}
+
+function getScoreNum() {
+  return document.querySelectorAll(".topic.activated").length;
+}
+
+function resetBoard() {
+document.getElementById("game-over-window").classList.add("display-false")
+  generateTopics();
+  letter.innerHTML = getRandomLetter();
+  document.getElementById("scorecard").textContent = getScoreNum();
+  resetCountdown();
+}
+
+function toggleCountdown() {
+
+
+    console.log("toggling Coundown !")
+    console.log("isRUnning = " + isRunning)
+  if (isRunning) {
+    pauseCountdown();
+    document.querySelectorAll('.opaque').forEach(el => el.style.backgroundColor = 'black');
+  } else {
+    startCountdown();
+    document.querySelectorAll('.opaque').forEach(el => el.style.backgroundColor = 'transparent');
+  }
+}
+ 
+topdiv.addEventListener('click' , resetBoard);
+leftDiv.addEventListener('click', toggleCountdown);
+
+document.getElementById('generate-btn').addEventListener('click', generateTopics);
+
+document.getElementById("restart-final-btn").addEventListener("click", () => {
+  document.getElementById("game-over-window").style.display = "none";
+  resetBoard();
+});
+
+
+optionsBtn.addEventListener('click', () => {settingsMenu.classList.add('open');});
+
+
+closeSettings.addEventListener('click', () => {
+  settingsMenu.classList.remove('open');
+  defaultTime = parseInt(document.getElementById('time-input').value);
+  timeRemaining = defaultTime;
+  stopwatchDisplay.innerHTML = formatTime(timeRemaining);
+  numTopicsToGenerate = parseInt(document.getElementById('topics-input').value);
+  const rawTopics = document.getElementById('custom-topics').value;
+  customTopics = rawTopics.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+  resetBoard();
+});
+
+

@@ -82,13 +82,14 @@ function togglePlayPauseButtons() {
     // button shows 'pause'
     playBtn.style.display = 'none';
     pauseBtn.style.display = 'flex';
-    timetext.style.transform = "scale(1.3)"
+    // timetext.style.transform = "scale(1.3)"
+    timetext.style.transform = null;
     
   } else {
+    // button shows play
     playBtn.style.display = 'flex';
     pauseBtn.style.display = 'none';
-    timetext.style.transform = null;
-
+    timetext.style.transform = "scale(0.8)"
   }
 }
 

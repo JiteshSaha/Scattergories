@@ -284,6 +284,12 @@ h1 {
     
 }
 
+
+#time-text {
+    max-width: inherit;
+    transition: transform ease-in 0.1s;
+}
+
 .btns {
     width: 100%;
     background-color: black;

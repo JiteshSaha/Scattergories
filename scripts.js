@@ -25,12 +25,27 @@ const alphabet = 'ABCDEFGHIJKLMNOPRSTUW'.split('');
 const fullDataset = {
   general: [
     "Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods", "Inventions",
-    "Colors", "Song", "Books", "Historical Figures", "Cartoons", "Technology Companies",
-    "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Types of Trees", "Desserts",
+    "Colors", "Song", "Books", "Historical Figures", "Cartoons", "Companies",
+    "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Tree", "Desserts",
     "Countries in Europe", "Ice Cream Flavors", "Scientists", "Board Games", "Superheroes", "Shapes",
     "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
-    "Famous Authors", "Food Ingredients", "Circus Animals", "Fast Food Chains", "Historical Events",
-    "Gems and Stones", "Paintings", "Dance Styles", "Colleague", "Athlete"
+    "Famous Authors", "Food Ingredients", "Fast Food Chains", "Historical Events",
+    "Gems and Stones", "Paintings", "Dance Styles", "Colleague", "Athlete", "Vegetables", "Place", "Reasons to leave job",
+    "Excuses to skip a trip", "Subject in school", "Childhood dream", "Reason to hate your colleague", "Reason to leave country",
+    "Reason to throw party",
+    "Worst gift ever", 
+    "Things to collect", 
+    "Excuses for being late", 
+    "Things you shouldn't text your boss", 
+    "Pets", 
+    "Things to put on pizza", 
+    "Worst places to get stuck", 
+    "Things you'd say in office", 
+    "Useless superpowers", 
+    "Things that could ruin a date", 
+    "Weird things to say at a wedding", 
+    "Things you shouldn't say to your in-laws"
+
   ],
   indian: [
     "Bollywood Movies", "Indian States/cities", "Indian Festivals", "Famous Indian Leaders", "Indian Cuisines", "Indian Monuments", "Famous Indian Musicians", "Indian Religious spot",

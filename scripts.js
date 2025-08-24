@@ -20,27 +20,25 @@ const optionsBtn = document.getElementById('options');
 const settingsMenu = document.getElementById('settings-menu');
 const closeSettings = document.getElementById('close-settings');
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const alphabet = 'ABCDEFGHIJKLMNOPRSTUW'.split('');
 
 const fullDataset = {
   general: [
     "Fruits", "Countries", "Movies", "Animals", "Cities", "Brands", "Sports", "TV Shows", "Foods", "Inventions",
-    "Colors", "Music Genres", "Books", "Historical Figures", "Cartoons", "Planets", "Technology Brands",
+    "Colors", "Song", "Books", "Historical Figures", "Cartoons", "Technology Companies",
     "Famous Landmarks", "Celebrities", "Activities", "Languages", "Cars", "Types of Trees", "Desserts",
-    "Countries in Europe", "Ice Cream Flavors", "Famous Scientists", "Board Games", "Superheroes", "Shapes",
+    "Countries in Europe", "Ice Cream Flavors", "Scientists", "Board Games", "Superheroes", "Shapes",
     "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
-    "Famous Authors", "Books by Genre", "Buildings", "Seasons", "Types of Weather",
-    "Food Ingredients", "Circus Animals", "Tropical Fruits", "Fast Food Chains", "Historical Events",
-    "Famous Wars", "Gems and Stones", "Paintings", "Dance Styles"
+    "Famous Authors", "Food Ingredients", "Circus Animals", "Fast Food Chains", "Historical Events",
+    "Gems and Stones", "Paintings", "Dance Styles", "Colleague", "Athlete"
   ],
   indian: [
-    "Bollywood Movies", "Indian States", "Indian Cities", "Indian Festivals", "Famous Indian Leaders", "Indian Rivers",
-    "Indian Cuisines", "Indian Monuments", "Famous Indian Musicians", "Traditional Indian Clothing", "Indian Temples",
-    "Indian Animals", "Indian Sports", "Indian Mythological Figures", "Indian Languages", "Indian Song", "Indian TV Shows",
-    "Famous Indian Artists", "Bollywood Actors", "Bollywood Actresses", "Indian Historical Figures", "Famous Indian Scientists",
-    "Indian Street Foods", "Indian Holidays", "Famous Indian Monuments", "Indian Beauty Brands", "Indian Heroes from History",
-    "Popular Indian Music Instruments", "Indian Religions", "Indian Cuisine Spices", "Indian Cricketers", "Indian Dance Forms",
-    "Indian Scientists and Innovators", "Indian Games", "Traditional Indian Jewelry", "Famous Indian Startups", "Indian Authors"
+    "Bollywood Movies", "Indian States/cities", "Indian Festivals", "Famous Indian Leaders", "Indian Cuisines", "Indian Monuments", "Famous Indian Musicians", "Indian Religious spot",
+    "Indian Mythological Figures", "Indian Languages", "Indian Song",
+    "Indian Actors", "Indian Actresses", "Indian Historical Figures",
+    "Indian Street Foods", "Indian Holidays", "Indian Heroes from History",
+    "Popular Indian Music Instruments", "Indian Spices", "Indian Athlete", "Indian Dance Forms",
+    "Indian Scientists and Innovators", "Indian Games", "Famous Indian Startups"
   ]
 };
 

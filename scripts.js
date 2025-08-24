@@ -31,7 +31,7 @@ const fullDataset = {
     "Toys", "Comedies", "Rivers", "Musical Instruments", "Occupations", "Countries in Asia", "Famous Artists",
     "Famous Authors", "Food Ingredients", "Fast Food Chains", "Historical Events",
     "Gems and Stones", "Paintings", "Dance Styles", "Colleague", "Athlete", "Vegetables", "Place", "Reasons to leave job",
-    "Excuses to skip a trip", "Subject in school", "Childhood dream", "Reason to hate your colleague", "Reason to leave country",
+    "Excuses to skip a trip", "Subject in school", "Childhood dream", "Reason to leave country",
     "Reason to throw party",
     "Worst gift ever", 
     "Things to collect", 
@@ -44,7 +44,24 @@ const fullDataset = {
     "Useless superpowers", 
     "Things that could ruin a date", 
     "Weird things to say at a wedding", 
-    "Things you shouldn't say to your in-laws"
+    "Things you shouldn't say to your in-laws",
+    "Things That Are Cold",
+    "Nicknames",
+    "Items You Save Up to Buy",
+    "Things You Replace",
+    "Ways to Kill Time",
+    "Reasons to Take Out a Loan",
+    "Bad Habits",
+    "Math Terms",
+    "Things to Do on a Date",
+    "Things You Shouldn't Touch",
+    "Items in a Refrigerator",
+    "Methods of Transportation",
+    "Software","4-Letter Words", "3-Letter Words",
+    
+
+
+
 
   ],
   indian: [
